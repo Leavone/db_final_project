@@ -36,6 +36,7 @@ class Order(Base):
     planned_end_date: Mapped["Date"] = mapped_column(Date, index=True)
     actual_end_date: Mapped["Date | None"] = mapped_column(Date, nullable=True, index=True)
 
+    status: Mapped[str] = mapped_column(String(32), server_default="new", nullable=False)
     meta: Mapped[dict] = mapped_column(JSONB, default=dict)
 
     car = relationship("Car", back_populates="orders")

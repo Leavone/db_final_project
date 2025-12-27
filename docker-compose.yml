@@ -1,0 +1,20 @@
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  api:
+    build: .
+    environment:
+      DATABASE_URL: postgresql+psycopg://autoservice_owner:autoservice_pass@db:5432/autoservice
+    ports:
+      - "5400:8000"
+    depends_on:
+      - db
+
+volumes:
+  pgdata:
